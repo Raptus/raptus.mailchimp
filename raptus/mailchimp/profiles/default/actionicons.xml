@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<action-icons xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="raptus.mailchimp">
+ <action-icon category="controlpanel"
+              action_id="MailchimpConfiglet"
+              title="MailChimp" priority="0"
+              icon_expr="++resource++raptus_mailchimp_icon.gif"
+              i18n:attributes="title"/>
+</action-icons>

@@ -24,6 +24,7 @@ setup(name='raptus.mailchimp',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'greatape'
           # -*- Extra requirements: -*-
       ],
       entry_points="""
@@ -32,6 +33,6 @@ setup(name='raptus.mailchimp',
       [z3c.autoinclude.plugin]
       target = plone
       """,
-      setup_requires=["PasteScript"],
-      paster_plugins = ["ZopeSkel"],
+      setup_requires=[ ],
+      paster_plugins = [ ],
       )

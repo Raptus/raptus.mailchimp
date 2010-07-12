@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+    <object name="raptus_mailchimp" purge="False">
+      <property name="mailchimp_api_key" type="string" purge="False"></property>
+    </object>
+</object>

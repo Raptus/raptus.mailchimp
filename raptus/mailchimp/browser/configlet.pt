@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/prefs_main_template/macros/master"
+      i18n:domain="raptus.mailchimp">
+
+<body>
+
+  <div metal:fill-slot="prefs_configlet_main">
+
+    <h1 class="documentFirstHeading" i18n:translate="">
+            MailChimp configuration
+    </h1>
+
+        <a href=""
+           class="link-parent"
+           tal:attributes="href string: $portal_url/plone_control_panel"
+           i18n:domain="plone"
+           i18n:translate="label_up_to_plone_setup">
+            Up to Site Setup
+        </a>
+        
+        <form action="."
+              metal:define-macro="master"
+              tal:attributes="action request/URL;"
+              method="post"
+              class="edit-form enableUnloadProtection"
+              tal:define="errors view/errors">
+
+            <fieldset>
+              <legend i18n:translate="">MailChimp configuration</legend>
+        
+                <div class="field"
+                     tal:attributes="class python:'field'+(errors.has_key('account_id') and ' error' or '')">
+
+                    <label i18n:translate=""
+                           for="account_id">
+                           MailChimp API-Key
+                    </label>
+
+                    <span class="fieldRequired"
+                          title="Required"
+                          i18n:domain="plone"
+                          i18n:attributes="title title_required;"
+                          i18n:translate="label_required">
+                        (Required)
+                    </span>
+
+                    <div class="formHelp"
+                         i18n:translate="">
+                        The MailChimp API-Key (e.g. a5aa5f4ff480c0175bcf3e8f3feef9db-us1)<br>
+                        If you don't have a api-key, go of mailchimp.com and let generate one.
+                    </div>
+
+                    <div tal:condition="python:errors.has_key('accountid')"
+                         tal:content="errors/title|nothing">
+                        The Error
+                    </div>
+
+                    <div class="widget">
+                      <!--
+                        <input id="account_id" name="account_id" value="a5aa5f4ff480c0175bcf3e8f3feef9db-us1" type="text"
+                               tal:attributes="value view/values/account_id|request/account_id">
+                               -->
+                        <input id="mailchimp_apikey" name="mailchimp_apikey" value="a5aa5f4ff480c0175bcf3e8f3feef9db-us1" type="text">
+                    </div>
+                </div>
+            </fieldset>
+            
+            <div id="actionsView" class="formControls">
+                <span class="actionButtons">
+                    <input name="mailchimp_save" value="Save" class="context" type="submit"
+                           i18n:domain="plone"
+                           i18n:attributes="value">
+                </span>
+                <span class="actionButtons">
+                    <input name="mailchimp_cancel" value="Cancel" class="context" type="submit"
+                           i18n:domain="plone"
+                           i18n:attributes="value">
+                </span>
+            </div>
+            <fieldset>
+              <legend i18n:translate="">Your MailChimp account</legend>
+              
+              
+            </fieldset>
+        </form>
+  </div>
+
+</body>
+</html>
