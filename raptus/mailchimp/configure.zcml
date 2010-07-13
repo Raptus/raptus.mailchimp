@@ -18,5 +18,8 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
-
+    <adapter
+      factory=".connector.Connector" />
+      
+      
 </configure>
