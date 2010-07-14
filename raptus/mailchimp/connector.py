@@ -8,7 +8,7 @@ class Connector(object):
     interface.implements(IConnector)
     component.adapts(interface.Interface)
     
-    # check if the apikey is valid
+    # check if the apikey is valid and the connector is ready to fetch data
     isValid = False
 
     def __init__(self, context):
@@ -18,6 +18,9 @@ class Connector(object):
 
     def getAccountDetails(self):
         return self.mailChimp(method='getAccountDetails')
+
+    def getLists(self):
+        return self.mailChimp(method='lists')
 
     def setNewAPIKey(self, apikey):
         self.mailChimp = greatape.MailChimp(apikey, self.props.mailchimp_ssl, self.props.mailchimp_debug)

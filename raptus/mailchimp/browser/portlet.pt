@@ -1,0 +1,8 @@
+<dl class="portlet">
+  <dt class="portletHeader portletMailChimp">
+    <span tal:content="view/name">Title of the portlet</span>
+  </dt>
+  <dd class="portletItem odd" tal:content="structure view/form">
+    here comes the subscriber-form
+  </dd>
+</dl>

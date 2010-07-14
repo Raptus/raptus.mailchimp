@@ -19,7 +19,7 @@
     />
 
     <adapter
-      factory=".connector.Connector" />
+      factory=".connector.Connector"/>
       
       
 </configure>

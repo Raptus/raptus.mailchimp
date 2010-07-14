@@ -81,61 +81,79 @@
             <fieldset tal:define="data view/account_data"
                       tal:condition="data">
               <legend i18n:translate="">Your MailChimp account</legend>
-                <dl>
-                  <dt i18n:translate="">Username: </dt>
-                  <dd tal:content="data/username"/>
-
-                  <dt i18n:translate="">Emails Left: </dt>
-                  <dd tal:content="data/emails_left"/>
-
-                  <dt i18n:translate="">Member Since: </dt>
-                  <dd tal:content="data/member_since"/>
-
-                  <dt i18n:translate="">Last Login: </dt>
-                  <dd tal:content="data/last_login"/>
-
-                  <dt i18n:translate="">Plan Type: </dt>
-                  <dd tal:content="data/plan_type"/>
-
-                  <dt i18n:translate="">Company: </dt>
-                  <dd tal:content="data/contact/company"/>
-
-                  <dt i18n:translate="">First Name: </dt>
-                  <dd tal:content="data/contact/fname"/>
-
-                  <dt i18n:translate="">Surname: </dt>
-                  <dd tal:content="data/contact/lname"/>
-
-                  <dt i18n:translate="">Email: </dt>
-                  <dd tal:content="data/contact/email"/>
-
-                  <dt i18n:translate="">Address 1: </dt>
-                  <dd tal:content="data/contact/address1"/>
-
-                  <dt i18n:translate="">Address 2: </dt>
-                  <dd tal:content="data/contact/address2"/>
-
-                  <dt i18n:translate="">Zip: </dt>
-                  <dd tal:content="data/contact/zip"/>
-
-                  <dt i18n:translate="">State: </dt>
-                  <dd tal:content="data/contact/state"/>
-
-                  <dt i18n:translate="">City: </dt>
-                  <dd tal:content="data/contact/city"/>
-
-                  <dt i18n:translate="">Country: </dt>
-                  <dd tal:content="data/contact/country"/>
-
-                  <dt i18n:translate="">Url: </dt>
-                  <dd tal:content="data/contact/url"/>
-
-                  <dt i18n:translate="">Phone: </dt>
-                  <dd tal:content="data/contact/phone"/>
-
-                  <dt i18n:translate="">Fax: </dt>
-                  <dd tal:content="data/contact/fax"/>
-                </dl>
+                <table>
+                  <tr>
+                     <td i18n:translate="">Username: </td>
+                     <td tal:content="data/username"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Emails Left: </td>
+                    <td tal:content="data/emails_left"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Member Since: </td>
+                    <td tal:content="data/member_since"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Last Login: </td>
+                    <td tal:content="data/last_login"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Plan Type: </td>
+                    <td tal:content="data/plan_type"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Company: </td>
+                    <td tal:content="data/contact/company"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">First Name: </td>
+                    <td tal:content="data/contact/fname"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Surname: </td>
+                    <td tal:content="data/contact/lname"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Email: </td>
+                    <td tal:content="data/contact/email"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Address 1: </td>
+                    <td tal:content="data/contact/address1"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Address 2: </td>
+                    <td tal:content="data/contact/address2"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Zip: </td>
+                    <td tal:content="data/contact/zip"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">State: </td>
+                    <td tal:content="data/contact/state"/>
+                  </tr>
+                  <tr>
+                     <td i18n:translate="">City: </td>
+                    <td tal:content="data/contact/city"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Country: </td>
+                    <td tal:content="data/contact/country"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Url: </td>
+                    <td tal:content="data/contact/url"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Phone: </td>
+                    <td tal:content="data/contact/phone"/>
+                  </tr>
+                  <tr>
+                    <td i18n:translate="">Fax: </td>
+                    <td tal:content="data/contact/fax"/>
+                </table>
             </fieldset>
         </form>
   </div>
