@@ -11,8 +11,13 @@ from raptus.mailchimp import interfaces
 
 
 def available_list(context):
-    lists = interfaces.IConnector(context).getLists()
-    return SimpleVocabulary([SimpleTerm(value=SimpleTerm(value=li['id'], title=li['name']), token=li['id'], title=li['name']) for li in lists])
+    connector = interfaces.IConnector(context)
+    lists = connector.getLists()
+    context.data.available_list = connector.cleanUpLists(context.data.available_list)
+    context.data._all_lists = {}
+    for li in lists:
+        context.data._all_lists.update({li['id']:li})
+    return SimpleVocabulary([SimpleTerm(value=li['id'], title=li['name']) for li in lists])
 
 class IMailChimpPortlet(IPortletDataProvider):
     """A Mailchimp portlet"""
@@ -32,6 +37,8 @@ class Assignment(base.Assignment):
     """Portlet assignment"""
     
     implements(IMailChimpPortlet, interfaces.IProperties)
+
+    _all_lists = {}
     
     def __init__(self, name=u'', available_list=[]):
         self.name = name
@@ -42,13 +49,13 @@ class Assignment(base.Assignment):
         return _(u"MailChimp")
     
     def getAvailableList(self):
-        return SimpleVocabulary(self.available_list)
+        return SimpleVocabulary([SimpleTerm(value=self._all_lists[li]['id'], title=self._all_lists[li]['name']) for li in  self.available_list])
 
 class Renderer(base.Renderer):
     """Portlet renderer"""
     
     render = ViewPageTemplateFile('portlet.pt')
-
+    
     def form(self):
         return getMultiAdapter((self.data, self.request), name='raptus.mailchimp.subscriberForm')()
 

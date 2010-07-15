@@ -1,8 +1,14 @@
 <?xml version="1.0"?>
 <object name="portal_properties" meta_type="Plone Properties Tool">
-    <object name="raptus_mailchimp" purge="True">
-      <property name="mailchimp_api_key" type="string" purge="True"></property>
-      <property name="mailchimp_debug" type="boolean" purge="True">False</property>
-      <property name="mailchimp_ssl" type="boolean" purge="True">True</property>
+    <object name="raptus_mailchimp" purge="False">
+      <property name="mailchimp_api_key" type="string" purge="False"></property>
+      <property name="mailchimp_debug" type="boolean" purge="False">False</property>
+      <property name="mailchimp_ssl" type="boolean" purge="False">True</property>
+      
+      <property name="lists_email_type" type="string" purge="False">html</property>
+      <property name="lists_double_optin" type="boolean" purge="False">True</property>
+      <property name="lists_update_existing" type="boolean" purge="False">False</property>
+      <property name="lists_replace_interests" type="boolean" purge="False">True</property>
+      <property name="lists_send_welcome" type="boolean" purge="False">False</property>
     </object>
 </object>
