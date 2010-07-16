@@ -55,7 +55,8 @@ class MultiCheckBoxWidget(MultiCheckBoxWidgetBase):
 class ISubscriberForm(interface.Interface):
     """ The schema of subscriber view
         feel free to extend this schema and define your own.
-        all possible fields you can find on mailchimp.com/api
+        all possible fields you can find on mailchimp.com/api.
+        you need to registered every field in mailchimp_available_fields properties
     """
 
     subscriber_list = schema.List(
@@ -68,16 +69,16 @@ class ISubscriberForm(interface.Interface):
         constraint=validateaddress)
 
     FNAME = schema.TextLine(
-        title=_('Name'))
+        title=_('First Name'))
 
     LNAME = schema.TextLine(
-        title=_('Surname'))
+        title=_('Last Name'))
     
 
 class SubscriberForm(FormBase):
     form_fields = form.Fields(ISubscriberForm, omit_readonly=True)
     template = ViewPageTemplateFile('subscriber.pt')
-    
+    template_message = ViewPageTemplateFile('subscriber_message.pt')
 
     def __init__(self, context, request):
         self.context, self.request = context, request
@@ -114,7 +115,8 @@ class SubscriberForm(FormBase):
         for err in errors:
             utils.addPortalMessage(' '.join(err.args),'error')
         if success:
-            utils.addPortalMessage(_("You successfully subscribed for: ${lists}.", mapping=dict(lists=', '.join(success))))
+            self.successMessage = _("You successfully subscribed for: ${lists}.", mapping=dict(lists=', '.join(success)))
+            self.template = self.template_message
 
 
 
