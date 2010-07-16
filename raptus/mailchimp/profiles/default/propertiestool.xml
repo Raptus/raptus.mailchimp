@@ -4,6 +4,11 @@
       <property name="mailchimp_api_key" type="string" purge="False"></property>
       <property name="mailchimp_debug" type="boolean" purge="False">False</property>
       <property name="mailchimp_ssl" type="boolean" purge="False">True</property>
+      <property name="mailchimp_cache_sec" type="int" purge="False">500</property>
+      <property name="mailchimp_available_fields" type="lines">
+        <element value="subscriber_list"/>
+        <element value="email"/>
+      </property>
       
       <property name="lists_email_type" type="string" purge="False">html</property>
       <property name="lists_double_optin" type="boolean" purge="False">True</property>

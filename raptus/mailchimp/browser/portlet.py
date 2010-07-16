@@ -1,9 +1,11 @@
 from zope.formlib import form
-from zope import schema
+from zope import schema, component
 from zope.interface import implements
 from zope.component import getMultiAdapter
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from zope.schema.interfaces import IVocabularyFactory
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFCore.utils import getToolByName
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from raptus.mailchimp import MessageFactory as _
@@ -13,11 +15,14 @@ from raptus.mailchimp import interfaces
 def available_list(context):
     connector = interfaces.IConnector(context)
     lists = connector.getLists()
-    context.data.available_list = connector.cleanUpLists(context.data.available_list)
-    context.data._all_lists = {}
-    for li in lists:
-        context.data._all_lists.update({li['id']:li})
+    if hasattr(context,'data'):
+        context.data.available_list = connector.cleanUpLists(context.data.available_list)
     return SimpleVocabulary([SimpleTerm(value=li['id'], title=li['name']) for li in lists])
+
+def errorMessage(context):
+    if not interfaces.IConnector(context).isValid:
+        utils = getToolByName(context, 'plone_utils')
+        utils.addPortalMessage(_('Before you can edit this portlet you need to put a API Key.'),'error')
 
 class IMailChimpPortlet(IPortletDataProvider):
     """A Mailchimp portlet"""
@@ -49,6 +54,7 @@ class Assignment(base.Assignment):
         return _(u"MailChimp")
     
     def getAvailableList(self):
+        return self.available_list
         return SimpleVocabulary([SimpleTerm(value=self._all_lists[li]['id'], title=self._all_lists[li]['name']) for li in  self.available_list])
 
 class Renderer(base.Renderer):
@@ -65,14 +71,22 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        return True
+        return len(component.getUtility(IVocabularyFactory,'raptus.mailchimp.subscriber_list')(self.data))
 
 class AddForm(base.AddForm):
     """Portlet add form"""
     form_fields = form.Fields(IMailChimpPortlet)
+    
+    def update(self):
+        errorMessage(self.context)
+        super(AddForm, self).update()
+    
     def create(self, data):
         return Assignment(**data)
 
 class EditForm(base.EditForm):
     """Portlet edit form"""
+    def __call__(self):
+        errorMessage(self.context)
+        return super(EditForm, self).__call__()
     form_fields = form.Fields(IMailChimpPortlet)

@@ -21,7 +21,12 @@ class Connector(object):
         return self.mailChimp(method='getAccountDetails')
 
     def getLists(self):
-        return self.mailChimp(method='lists')
+        if self.isValid:
+            try:
+                return self.mailChimp(method='lists')
+            except:
+                pass
+        return []
 
     def addSubscribe(self, ids, email_address, merge_vars={}, **kwargs):
         defaults = dict(email_type = self.props.lists_email_type,
@@ -31,6 +36,10 @@ class Connector(object):
                         send_welcome = self.props.lists_send_welcome)
         defaults.update(kwargs)
         
+        # quick fix if merge_vars are empty
+        if not len(merge_vars):
+            merge_vars = dict(dummy='dummy')
+
         errors = []
         success =[]
         lists = self.getLists()
@@ -47,8 +56,7 @@ class Connector(object):
             
     def cleanUpLists(self, lists):
         return [li for li in lists if li in [i['id'] for i in self.getLists()]]
-        
-            
+
     def setNewAPIKey(self, apikey):
         self.mailChimp = greatape.MailChimp(apikey, self.props.mailchimp_ssl, self.props.mailchimp_debug)
         try:
