@@ -45,10 +45,12 @@ class Connector(object):
         lists = self.getLists()
         for id in ids:
             if id in [li['id'] for li in lists]:
+                name = [i for i in lists if i['id']==id][0]['name']
                 try:
                     self.mailChimp(method='listSubscribe',id=id, email_address=email_address, merge_vars=merge_vars,**defaults)
-                    success.append([i for i in lists if i['id']==id][0]['name'])
+                    success.append(name)
                 except Exception, error:
+                    error.args = (_(msg.replace(email_address,'${email}').replace(name,'${list}'), mapping=dict(email=email_address,list=name)) for msg in error.args)
                     errors.append(error)
             else:
                 errors.append(greatape.MailChimpError(_('The chosen list is not more available')))

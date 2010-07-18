@@ -111,7 +111,7 @@
                     <td tal:content="data/contact/fname"/>
                   </tr>
                   <tr>
-                    <td i18n:translate="">Surname: </td>
+                    <td i18n:translate="">Lastname: </td>
                     <td tal:content="data/contact/lname"/>
                   </tr>
                   <tr>

@@ -176,6 +176,6 @@ msgid "Zip:"
 msgstr ""
 
 #: Mailchimp API errors
-msgid "{email} is already subscribed to list Test List für MailChimp"
+msgid "${email} is already subscribed to list ${list}"
 msgstr ""
 
