@@ -4,7 +4,7 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="raptus.mailchimp">
 
-  <five:registerPackage package="." initialize=".initialize" />
+  <five:registerPackage package="." />
 
   <include package=".browser" />
 
@@ -18,8 +18,10 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
-    <adapter
-      factory=".connector.Connector"/>
-      
+  <adapter
+    factory=".connector.Connector"/>
+    
+  <utility component=".raptusmailchimpdomain"
+           name="raptus.mailchimp" />
       
 </configure>

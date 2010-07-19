@@ -1,23 +1,21 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# French translations for PACKAGE package
-# Traductions françaises du paquet PACKAGE.
-# Samuel Riolo <>, 2010.
+# Samuel Riolo <sriolo@raptus.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: raputs.mailchimp\n"
 "POT-Creation-Date: 2010-07-16 14:20+0000\n"
 "PO-Revision-Date: 2010-07-18 22:23+0200\n"
-"Last-Translator: Samuel Riolo <>\n"
+"Last-Translator: Steve Beyeler <sbeyeler@raptus.com>\n"
+"Language-Team: Samuel Riolo <sriolo@raputs.com>\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: fr\n"
+"Language-Name: French\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: raptus.mailchimp\n"
-"Language: fr\n"
+"X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
 #: browser/configlet.pt:122
 msgid "Address 1:"

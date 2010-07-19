@@ -1,5 +1,6 @@
 import time
 from zope import interface, schema, component
+from zope.i18n import translate
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.formlib import form
 from zope.schema.interfaces import IVocabularyFactory
@@ -113,7 +114,7 @@ class SubscriberForm(FormBase):
         
         success, errors = connector.addSubscribe(subscriber_list, email, data)
         for err in errors:
-            utils.addPortalMessage(' '.join(err.args),'error')
+            utils.addPortalMessage(' '.join([translate(msg, context=self.request) for msg in err.args]),'error')
         if success:
             self.successMessage = _("You successfully subscribed for: ${lists}.", mapping=dict(lists=', '.join(success)))
             self.template = self.template_message
