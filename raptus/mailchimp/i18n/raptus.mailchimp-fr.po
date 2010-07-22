@@ -19,163 +19,165 @@ msgstr ""
 
 #: browser/configlet.pt:122
 msgid "Address 1:"
-msgstr "Adresse 1:"
+msgstr "Adresse 1"
 
 #: browser/configlet.pt:126
 msgid "Address 2:"
-msgstr "Adresse 2:"
+msgstr "Adresse 2"
 
 #: browser/portlet.py:35
-msgid "Available Lists"
-msgstr "Les Lists disponible"
+msgid "Available lists"
+msgstr "Listes disponibles"
 
 #: browser/portlet.py:25
-msgid "Before you can edit this portlet you need to put a API Key."
-msgstr ""
+msgid "API key entry required for editing this portlet."
+msgstr "Saisie d'une clé API nécessaire, pour pouvoir éditer ce portlet."
 
 #: browser/subscriber.py:63
-msgid "Choose a List you want subscribe for"
-msgstr ""
+msgid "Choose the list(s) you want to subscribe to."
+msgstr "Choisissez la/les liste(s), auquelles vous souhaitez vous abonner."
 
 #: browser/configlet.pt:138
 msgid "City:"
-msgstr ""
+msgstr "Lieu:"
 
 #: browser/configlet.pt:106
 msgid "Company:"
-msgstr ""
+msgstr "Société:"
 
 #: browser/configlet.pt:142
 msgid "Country:"
-msgstr ""
+msgstr "Pays:"
 
 #: browser/subscriber.py:68
-msgid "Email"
-msgstr ""
+msgid "E-mail"
+msgstr "E-mail"
 
 #: browser/configlet.pt:118
-msgid "Email:"
-msgstr ""
+msgid "E-mail:"
+msgstr "E-mail:"
 
 #: browser/configlet.pt:90
-msgid "Emails Left:"
-msgstr ""
+msgid "E-mails left:"
+msgstr "E-mails restants:"
 
 #: browser/configlet.pt:154
 msgid "Fax:"
-msgstr ""
+msgstr "Fax:"
 
 #: browser/subscriber.py:72
-msgid "First Name"
-msgstr ""
+msgid "First name"
+msgstr "Prénom"
 
 #: browser/configlet.pt:110
-msgid "First Name:"
-msgstr ""
+msgid "First name:"
+msgstr "Prénom:"
 
 #: browser/subscriber.py:46
-msgid "Invalid email address"
-msgstr ""
+msgid "Invalid e-mail address"
+msgstr "Adresse e-mail non valide"
 
 #: browser/configlet.pt:98
-msgid "Last Login:"
-msgstr ""
+msgid "Last login:"
+msgstr "Dernier login:"
 
 #: browser/subscriber.py:75
-msgid "Last Name"
-msgstr ""
+msgid "Last name"
+msgstr "Nom"
 
 #: browser/portlet.py:54 profiles/default/actionicons.xml
 #: profiles/default/controlpanel.xml
 msgid "MailChimp"
-msgstr ""
+msgstr "MailChimp"
 
 #: browser/configlet.pt:38
-msgid "MailChimp API-Key"
-msgstr ""
+msgid "MailChimp API key"
+msgstr "Clé API Mailchimp"
 
 #: browser/configlet.pt:13
 msgid "MailChimp configuration"
-msgstr ""
+msgstr "Configuration MailChimp"
 
 #: browser/configlet.pt:94
-msgid "Member Since:"
-msgstr ""
+msgid "Member since:"
+msgstr "Membre depuis:"
 
 #: browser/configlet.pt:150
 msgid "Phone:"
-msgstr ""
+msgstr "Téléphone:"
 
 #: browser/configlet.pt:102
-msgid "Plan Type:"
-msgstr ""
+msgid "Plan type:"
+msgstr "Type de plan:"
 
 #: browser/portlet.py:36
-msgid "Select available lists as subscribe in"
-msgstr ""
+msgid "Select available lists to subscribe to."
+msgstr "Veuillez sélectionner les listes, auquelles il est possible de s'abonner."
 
 #: browser/configlet.pt:134
 msgid "State:"
-msgstr ""
+msgstr "Etat:"
 
 #: browser/subscriber.py:99
 msgid "Subscribe"
-msgstr ""
+msgstr "S'abonner"
 
 #: browser/portlet.py:70
-msgid "Subscribe for newsletter"
-msgstr ""
+msgid "Subscribe to newsletter"
+msgstr "S'abonner à la newsletter"
 
 #: browser/configlet.pt:114
-msgid "Lastname:"
-msgstr ""
+msgid "Last name:"
+msgstr "Nom:"
 
 #: browser/configlet.pt:51
 msgid ""
-"The MailChimp API-Key (e.g. a5aa5f4ff48090172bcf3e8f3feef9db-us1)<br> If you "
-"don't have a api-key, go of mailchimp.com and let generate one."
+"MailChimp API key (e.g. a5aa5f4ff48090172bcf3e8f3feef9db-us1)<br> If you "
+"don't have an API key, please generate one on mailchimp.com."
 msgstr ""
+"Clé API MailChimp (z.B. a5aa5f4ff48090172bcf3e8f3feef9db-us1)<br> Si vous"
+"ne disposez pas de clé API, veuillez en générer une sous mailchimp.com."
 
 #: connector.py:54
-msgid "The chosen list is not more available"
-msgstr ""
+msgid "The chosen list is not available anymore."
+msgstr "La liste choisie n'est plus dispobible."
 
 #: browser/configlet.py:28
-msgid "The given API-Key for MailChimp is not valid"
-msgstr ""
+msgid "The provided MailChimp API key is not valid"
+msgstr "La clé API MailChimp n'est pas valide"
 
 #: browser/portlet.py:32
-msgid "The title of the portlet"
-msgstr ""
+msgid "Title of the portlet"
+msgstr "Titre du portlets"
 
 #: browser/portlet.py:31
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: browser/configlet.pt:146
-msgid "Url:"
-msgstr ""
+msgid "URL:"
+msgstr "URL:"
 
 #: browser/configlet.pt:86
 msgid "Username:"
-msgstr ""
+msgstr "Nom d'utilisateur"
 
 #: browser/subscriber.py:111
 msgid "You must choose at last one list."
-msgstr ""
+msgstr "Il vous faut choisir au moins une liste."
 
 #: browser/subscriber.py:118
-msgid "You successfully subscribed for: ${lists}."
-msgstr ""
+msgid "You successfully subscribed to: ${lists}."
+msgstr "Vous vous êtes abonné avec succès au listes suivantes: $(lists)."
 
 #: browser/configlet.pt:83
 msgid "Your MailChimp account"
-msgstr ""
+msgstr "Votre compte MailChimp"
 
 #: browser/configlet.pt:130
 msgid "Zip:"
-msgstr ""
+msgstr "Code postal:"
 
-#: Mailchimp API errors
+# Mailchimp API
 msgid "${email} is already subscribed to list ${list}"
-msgstr ""
+msgstr "${email} s'est déjà abonné à ${list}."

@@ -25,7 +25,7 @@ class Configlet(BrowserView):
             if connector.isValid:
                 props.mailchimp_api_key = self.request.form.get('mailchimp_apikey')
             else:
-                self.errors.update(dict(mailchimp_apikey=_(u'The given API-Key for MailChimp is not valid')))
+                self.errors.update(dict(mailchimp_apikey=_(u'The provided MailChimp API key is not valid')))
                 utils.addPortalMessage(_(u'The given API-Key for MailChimp is not valid'),'error')
             self.values.update(dict(mailchimp_apikey = self.request.form.get('mailchimp_apikey')))
         

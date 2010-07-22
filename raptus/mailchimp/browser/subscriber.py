@@ -24,8 +24,6 @@ def _render_cachekey(fun, self):
 
 @ram.cache(_render_cachekey)
 def subscriber_list(context):
-    import logging
-    logging.info('call of cache function')
     connector = interfaces.IConnector(context)
     lists = connector.getLists()
     simpleTerms = []
@@ -44,7 +42,7 @@ def validateaddress(value):
     return True
 
 class InvalidEmailAddress(schema.ValidationError):
-    __doc__ = _(u"Invalid email address")
+    __doc__ = _(u"Invalid e-mail address")
 
 class MultiCheckBoxWidget(MultiCheckBoxWidgetBase):
     """ because the form machinery expects to instantiate widgets with two parameters
@@ -61,19 +59,19 @@ class ISubscriberForm(interface.Interface):
     """
 
     subscriber_list = schema.List(
-        title=_(u'Choose a List you want subscribe for'),
+        title=_(u'Choose the list(s) you want to subscribe to.'),
         required=True,
         value_type=schema.Choice(source='raptus.mailchimp.subscriber_list'))
 
     email = schema.TextLine(
-        title=_(u'Email'),
+        title=_(u'E-mail'),
         constraint=validateaddress)
 
     FNAME = schema.TextLine(
-        title=_('First Name'))
+        title=_('First name'))
 
     LNAME = schema.TextLine(
-        title=_('Last Name'))
+        title=_('Last name'))
     
 
 class SubscriberForm(FormBase):
@@ -116,7 +114,7 @@ class SubscriberForm(FormBase):
         for err in errors:
             utils.addPortalMessage(' '.join([translate(msg, context=self.request) for msg in err.args]),'error')
         if success:
-            self.successMessage = _("You successfully subscribed for: ${lists}.", mapping=dict(lists=', '.join(success)))
+            self.successMessage = _("You successfully subscribed to: ${lists}.", mapping=dict(lists=', '.join(success)))
             self.template = self.template_message
 
 

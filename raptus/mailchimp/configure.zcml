@@ -18,6 +18,14 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
+  <genericsetup:registerProfile
+    name="install"
+    title="raptus.mailchimp"
+    directory="profiles/install"
+    description=""
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
   <adapter
     factory=".connector.Connector"/>
     

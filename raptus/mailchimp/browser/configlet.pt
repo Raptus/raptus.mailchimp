@@ -37,7 +37,7 @@
 
                     <label i18n:translate=""
                            for="account_id">
-                           MailChimp API-Key
+                           MailChimp API key
                     </label>
 
                     <span class="fieldRequired"
@@ -50,8 +50,8 @@
 
                     <div class="formHelp"
                          i18n:translate="">
-                        The MailChimp API-Key (e.g. a5aa5f4ff48090172bcf3e8f3feef9db-us1)<br>
-                        If you don't have a api-key, go of mailchimp.com and let generate one.
+                        MailChimp API key (e.g. a5aa5f4ff48090172bcf3e8f3feef9db-us1)<br>
+                        If you don't have an API key, please generate one on mailchimp.com.
                     </div>
 
                     <div class="widget">
@@ -87,19 +87,19 @@
                      <td tal:content="data/username"/>
                   </tr>
                   <tr>
-                    <td i18n:translate="">Emails Left: </td>
+                    <td i18n:translate="">E-mails left: </td>
                     <td tal:content="data/emails_left"/>
                   </tr>
                   <tr>
-                    <td i18n:translate="">Member Since: </td>
+                    <td i18n:translate="">Member since: </td>
                     <td tal:content="data/member_since"/>
                   </tr>
                   <tr>
-                    <td i18n:translate="">Last Login: </td>
+                    <td i18n:translate="">Last login: </td>
                     <td tal:content="data/last_login"/>
                   </tr>
                   <tr>
-                    <td i18n:translate="">Plan Type: </td>
+                    <td i18n:translate="">Plan type: </td>
                     <td tal:content="data/plan_type"/>
                   </tr>
                   <tr>
@@ -107,11 +107,11 @@
                     <td tal:content="data/contact/company"/>
                   </tr>
                   <tr>
-                    <td i18n:translate="">First Name: </td>
+                    <td i18n:translate="">First name: </td>
                     <td tal:content="data/contact/fname"/>
                   </tr>
                   <tr>
-                    <td i18n:translate="">Lastname: </td>
+                    <td i18n:translate="">Last name: </td>
                     <td tal:content="data/contact/lname"/>
                   </tr>
                   <tr>
@@ -143,7 +143,7 @@
                     <td tal:content="data/contact/country"/>
                   </tr>
                   <tr>
-                    <td i18n:translate="">Url: </td>
+                    <td i18n:translate="">URL: </td>
                     <td tal:content="data/contact/url"/>
                   </tr>
                   <tr>

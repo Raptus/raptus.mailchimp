@@ -22,18 +22,18 @@ def available_list(context):
 def errorMessage(context):
     if not interfaces.IConnector(context).isValid:
         utils = getToolByName(context, 'plone_utils')
-        utils.addPortalMessage(_('Before you can edit this portlet you need to put a API Key.'),'error')
+        utils.addPortalMessage(_('API key entry required for editing this portlet.'),'error')
 
 class IMailChimpPortlet(IPortletDataProvider):
     """A Mailchimp portlet"""
 
     name = schema.TextLine(
     title=_(u'Title'),
-    description=_(u'The title of the portlet'))
+    description=_(u'Title of the portlet'))
     
     available_list = schema.List(
-    title=_(u'Available Lists'),
-    description=_(u'Select available lists as subscribe in'),
+    title=_(u'Available lists'),
+    description=_(u'Select available lists to subscribe to.'),
     required=True,
     min_length=1,
     value_type=schema.Choice(source='raptus.mailchimp.available_list'))
@@ -67,7 +67,7 @@ class Renderer(base.Renderer):
 
     @property
     def name(self):
-        return self.data.name or _(u"Subscribe for newsletter")
+        return self.data.name or _(u"Subscribe to newsletter")
 
     @property
     def available(self):

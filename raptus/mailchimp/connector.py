@@ -53,7 +53,7 @@ class Connector(object):
                     error.args = (_(msg.replace(email_address,'${email}').replace(name,'${list}'), mapping=dict(email=email_address,list=name)) for msg in error.args)
                     errors.append(error)
             else:
-                errors.append(greatape.MailChimpError(_('The chosen list is not more available')))
+                errors.append(greatape.MailChimpError(_('The chosen list is not available anymore.')))
         return success, errors
             
     def cleanUpLists(self, lists):
