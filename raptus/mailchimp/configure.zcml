@@ -22,9 +22,10 @@
     name="raptus.mailchimp.import"
     title="Mailchimp configuration"
     description="Configures Mailchimp properties"
-    handler="raptus.mailchimp.Extensions.install.import_various">
-      <depends name="profile-raptus.mailchimp:default" />
+    handler="raptus.mailchimp.setuphandlers.setupProperties">
+    <depends name="propertiestool" />
   </genericsetup:importStep>
+  
   <adapter
     factory=".connector.Connector"/>
     

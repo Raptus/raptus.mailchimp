@@ -85,14 +85,14 @@ class SubscriberForm(FormBase):
         
         props = getToolByName(self.context, 'portal_properties').raptus_mailchimp
         
-        # hidde all fields they are not found in properties
-        hidde = [field.field.getName() for field in self.form_fields if field.field.getName() not in props.mailchimp_available_fields]
+        # hide all fields they are not found in properties
+        hide = [field.field.getName() for field in self.form_fields if field.field.getName() not in props.mailchimp_available_fields]
         # change schema if there is only one list available
         if len(self.context.getAvailableList()) <= 1:
-            hidde.append('subscriber_list')
-            self.form_fields = form.Fields(ISubscriberForm, omit_readonly=True).omit(*hidde)
+            hide.append('subscriber_list')
+            self.form_fields = form.Fields(ISubscriberForm, omit_readonly=True).omit(*hide)
         else:
-            self.form_fields = form.Fields(ISubscriberForm, omit_readonly=True).omit(*hidde)
+            self.form_fields = form.Fields(ISubscriberForm, omit_readonly=True).omit(*hide)
             self.form_fields['subscriber_list'].custom_widget = MultiCheckBoxWidget
             
     @form.action(_('Subscribe'))
