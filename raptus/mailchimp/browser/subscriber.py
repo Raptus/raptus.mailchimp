@@ -98,7 +98,6 @@ class SubscriberForm(FormBase):
     @form.action(_('Subscribe'))
     def subscribe(self, action, data):
         connector = interfaces.IConnector(self.context)
-        utils = getToolByName(self.context, 'plone_utils')
         
         email = data.pop('email')
         if (data.has_key('subscriber_list')):
@@ -107,12 +106,14 @@ class SubscriberForm(FormBase):
             subscriber_list = [li.token for li in self.subscriber_list_voc] 
         
         if len(subscriber_list) == 0:
-            utils.addPortalMessage(_("You must choose at last one list."))
+            self.status=_("You must choose at last one list.")
+            self.info = True
             return
         
         success, errors = connector.addSubscribe(subscriber_list, email, data)
-        for err in errors:
-            utils.addPortalMessage(' '.join([translate(msg, context=self.request) for msg in err.args]),'error')
+        if len(errors):
+            self.status = ', '.join( [' '.join([translate(msg, context=self.request) for msg in err.args]) for err in errors ])
+            self.errors = True
         if success:
             self.successMessage = _("You successfully subscribed to: ${lists}.", mapping=dict(lists=', '.join(success)))
             self.template = self.template_message
