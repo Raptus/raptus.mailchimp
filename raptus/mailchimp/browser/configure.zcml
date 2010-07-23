@@ -5,8 +5,8 @@
     i18n_domain="plone">
 
   <browser:page
-      for="Products.CMFCore.interfaces.ISiteRoot"
       name="mailchimp_configlet"
+      for="Products.CMFCore.interfaces.ISiteRoot"
       class=".configlet.Configlet"
       permission="cmf.ManagePortal"
       />
@@ -23,22 +23,29 @@
       editview=".portlet.EditForm"
       />
 
-   <utility
+  <utility
       provides="zope.schema.interfaces.IVocabularyFactory"
       name="raptus.mailchimp.available_list"
       component=".portlet.available_list"
       />
     
   <browser:page
-      for="raptus.mailchimp.interfaces.IProperties"
       name="raptus.mailchimp.subscriberForm"
+      for="raptus.mailchimp.interfaces.IProperties"
       class=".subscriber.SubscriberForm"
       permission="zope.Public"
       />
+    
+  <browser:page
+      name="raptus.mailchimp.subscriberForm"
+      for="*"
+      class=".subscriber.SubscriberFormInlineValidator"
+      permission="zope.Public"
+      />
 
-   <utility
-      provides="zope.schema.interfaces.IVocabularyFactory"
+  <utility
       name="raptus.mailchimp.subscriber_list"
+      provides="zope.schema.interfaces.IVocabularyFactory"
       component=".subscriber.subscriber_list"
       />
 

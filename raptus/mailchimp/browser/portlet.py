@@ -55,7 +55,6 @@ class Assignment(base.Assignment):
     
     def getAvailableList(self):
         return self.available_list
-        return SimpleVocabulary([SimpleTerm(value=self._all_lists[li]['id'], title=self._all_lists[li]['name']) for li in  self.available_list])
 
 class Renderer(base.Renderer):
     """Portlet renderer"""

@@ -5,6 +5,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.formlib import form
 from zope.schema.interfaces import IVocabularyFactory
 from zope.app.form.browser import MultiCheckBoxWidget as MultiCheckBoxWidgetBase
+from zope.app.form.browser.widget import SimpleInputWidget
 from plone.memoize import ram
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.Five.formlib.formbase import FormBase
@@ -16,22 +17,25 @@ from raptus.mailchimp import MessageFactory as _
 from raptus.mailchimp import interfaces
 
 def _render_cachekey(fun, self):
-    # raise ram.DontCache
-    props = getToolByName(self.context, 'portal_properties').raptus_mailchimp
-    key = '-'.join(self.data.getAvailableList())
-    key += str(int(time.time()) / props.mailchimp_cache_sec) # cache for at most 100 seconds
-    return key
+    try:
+        props = getToolByName(self.context, 'portal_properties').raptus_mailchimp
+        key = '-'.join(self.data.getAvailableList())
+        key += str(int(time.time()) / props.mailchimp_cache_sec) # cache for at most 100 seconds
+        return key
+    except:
+        raise ram.DontCache
 
 @ram.cache(_render_cachekey)
 def subscriber_list(context):
     connector = interfaces.IConnector(context)
     lists = connector.getLists()
     simpleTerms = []
-    for li in context.getAvailableList():
-        for dli in lists:
-            if li == dli['id']:
-                simpleTerms.append(SimpleTerm(value=dli['id'], title=dli['name']))
-                break
+    if hasattr(context, 'getAvailableList'):
+        for li in context.getAvailableList():
+            for dli in lists:
+                if li == dli['id']:
+                    simpleTerms.append(SimpleTerm(value=dli['id'], title=dli['name']))
+                    break
     return SimpleVocabulary(simpleTerms)
 
 def validateaddress(value):
@@ -72,7 +76,6 @@ class ISubscriberForm(interface.Interface):
 
     LNAME = schema.TextLine(
         title=_('Last name'))
-    
 
 class SubscriberForm(FormBase):
     form_fields = form.Fields(ISubscriberForm, omit_readonly=True)
@@ -118,10 +121,19 @@ class SubscriberForm(FormBase):
             self.successMessage = _("You successfully subscribed to: ${lists}.", mapping=dict(lists=', '.join(success)))
             self.template = self.template_message
 
+class ValidatingWidget(SimpleInputWidget):
+    def getInputValue(self):
+        return
+    def error(self):
+        return False
+    def hasInput(self):
+        return False
 
-
-
-
-
-
-
+class SubscriberFormInlineValidator(FormBase):
+    form_fields = form.Fields(ISubscriberForm)
+    def __init__(self, context, request):
+        self.context, self.request = context, request
+        for field in self.form_fields:
+            self.form_fields[field.field.getName()].custom_widget = ValidatingWidget
+    def __call__(self):
+        return ''
