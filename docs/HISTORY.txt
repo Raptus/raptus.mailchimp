@@ -1,7 +1,13 @@
 Changelog
 =========
 
+2.0b1 (2010-09-17)
+------------------
+
+* Plone 4 compatibility
+
 1.0dev (unreleased)
 -------------------
 
 - Initial release
+
