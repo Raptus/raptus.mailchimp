@@ -50,7 +50,7 @@
 
                     <div class="formHelp"
                          i18n:translate="">
-                        MailChimp API key (e.g. a5aa5f4ff48090172bcf3e8f3feef9db-us1)<br>
+                        MailChimp API key (e.g. a5aa5f4ff48090172bcf3e8f3feef9db-us1)<br/>
                         If you don't have an API key, please generate one on mailchimp.com.
                     </div>
 
@@ -61,7 +61,7 @@
                                value="a5aa5f4ff48090172bcf3e8f3feef9db-us1"
                                type="text"
                                size="40"
-                               tal:attributes="value view/values/mailchimp_apikey|request/mailchimp_apikey">
+                               tal:attributes="value view/values/mailchimp_apikey|request/mailchimp_apikey"/>
                     </div>
                 </div>
             </fieldset>
@@ -70,12 +70,12 @@
                 <span class="actionButtons">
                     <input name="mailchimp_save" value="Save" class="context" type="submit"
                            i18n:domain="plone"
-                           i18n:attributes="value label_save">
+                           i18n:attributes="value label_save"/>
                 </span>
                 <span class="actionButtons">
                     <input name="mailchimp_cancel" value="Cancel" class="context" type="submit"
                            i18n:domain="plone"
-                           i18n:attributes="value label_cancel">
+                           i18n:attributes="value label_cancel"/>
                 </span>
             </div>
             <fieldset tal:define="data view/account_data"
@@ -153,6 +153,7 @@
                   <tr>
                     <td i18n:translate="">Fax: </td>
                     <td tal:content="data/contact/fax"/>
+                  </tr>
                 </table>
             </fieldset>
         </form>
