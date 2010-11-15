@@ -78,81 +78,82 @@
                            i18n:attributes="value label_cancel"/>
                 </span>
             </div>
-            <fieldset tal:define="data view/account_data"
+            <fieldset tal:define="data view/account_data;
+                                  empty string:-"
                       tal:condition="data">
               <legend i18n:translate="">Your MailChimp account</legend>
                 <table>
                   <tr>
                      <td i18n:translate="">Username: </td>
-                     <td tal:content="data/username"/>
+                     <td tal:content="data/username|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">E-mails left: </td>
-                    <td tal:content="data/emails_left"/>
+                    <td tal:content="data/emails_left|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Member since: </td>
-                    <td tal:content="data/member_since"/>
+                    <td tal:content="data/member_since|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Last login: </td>
-                    <td tal:content="data/last_login"/>
+                    <td tal:content="data/last_login|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Plan type: </td>
-                    <td tal:content="data/plan_type"/>
+                    <td tal:content="data/plan_type|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Company: </td>
-                    <td tal:content="data/contact/company"/>
+                    <td tal:content="data/contact/company|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">First name: </td>
-                    <td tal:content="data/contact/fname"/>
+                    <td tal:content="data/contact/fname|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Last name: </td>
-                    <td tal:content="data/contact/lname"/>
+                    <td tal:content="data/contact/lname|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Email: </td>
-                    <td tal:content="data/contact/email"/>
+                    <td tal:content="data/contact/email|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Address 1: </td>
-                    <td tal:content="data/contact/address1"/>
+                    <td tal:content="data/contact/address1|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Address 2: </td>
-                    <td tal:content="data/contact/address2"/>
+                    <td tal:content="data/contact/address2|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Zip: </td>
-                    <td tal:content="data/contact/zip"/>
+                    <td tal:content="data/contact/zip|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">State: </td>
-                    <td tal:content="data/contact/state"/>
+                    <td tal:content="data/contact/state|empty"/>
                   </tr>
                   <tr>
                      <td i18n:translate="">City: </td>
-                    <td tal:content="data/contact/city"/>
+                    <td tal:content="data/contact/city|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Country: </td>
-                    <td tal:content="data/contact/country"/>
+                    <td tal:content="data/contact/country|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">URL: </td>
-                    <td tal:content="data/contact/url"/>
+                    <td tal:content="data/contact/url|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Phone: </td>
-                    <td tal:content="data/contact/phone"/>
+                    <td tal:content="data/contact/phone|empty"/>
                   </tr>
                   <tr>
                     <td i18n:translate="">Fax: </td>
-                    <td tal:content="data/contact/fax"/>
+                    <td tal:content="data/contact/fax|empty"/>
                   </tr>
                 </table>
             </fieldset>
