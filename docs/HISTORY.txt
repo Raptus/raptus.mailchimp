@@ -1,12 +1,12 @@
 Changelog
 =========
 
-2.0b3 (2010-11-15)
+1.0b1 (2010-11-15)
 ------------------
 
 * fix configlet: check the content of user-data. fix a error with no-free accounts
 
-2.0b1 (2010-09-17)
+1.0a2 (2010-09-17)
 ------------------
 
 * Plone 4 compatibility
