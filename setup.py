@@ -30,8 +30,6 @@ setup(name='raptus.mailchimp',
       entry_points="""
       # -*- Entry points: -*-
 
-      [z3c.autoinclude.plugin]
-      target = plone
       """,
       setup_requires=[ ],
       paster_plugins = [ ],
