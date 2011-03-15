@@ -49,8 +49,12 @@ class Connector(object):
                 try:
                     self.mailChimp(method='listSubscribe',id=id, email_address=email_address, merge_vars=merge_vars,**defaults)
                     success.append(name)
+                except KeyError, error:
+                    # special error for non-ascii chars
+                    error.args = [_('Invalid character: ${char}', mapping=dict(char=msg)) for msg in error.args]
+                    errors.append(error)
                 except Exception, error:
-                    error.args = (_(msg.replace(email_address,'${email}').replace(name,'${list}'), mapping=dict(email=email_address,list=name)) for msg in error.args)
+                    error.args = [_(msg.replace(email_address,'${email}').replace(name,'${list}'), mapping=dict(email=email_address,list=name)) for msg in error.args]
                     errors.append(error)
             else:
                 errors.append(greatape.MailChimpError(_('The chosen list is not available anymore.')))

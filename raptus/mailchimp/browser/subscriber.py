@@ -16,6 +16,15 @@ from Products.CMFDefault.exceptions import EmailAddressInvalid
 from raptus.mailchimp import MessageFactory as _
 from raptus.mailchimp import interfaces
 
+try: 
+    # we need to check this version because
+    # the template pageform are not the same
+    import plone.app.upgrade 
+    PLONE4 = True 
+except ImportError: 
+    PLONE4 = False
+
+
 def _render_cachekey(fun, self):
     try:
         props = getToolByName(self.context, 'portal_properties').raptus_mailchimp
@@ -78,6 +87,7 @@ class ISubscriberForm(interface.Interface):
         title=_('Last name'))
 
 class SubscriberForm(FormBase):
+    PLONEVERSION = PLONE4
     form_fields = form.Fields(ISubscriberForm, omit_readonly=True)
     template = ViewPageTemplateFile('subscriber.pt')
     template_message = ViewPageTemplateFile('subscriber_message.pt')
@@ -111,12 +121,14 @@ class SubscriberForm(FormBase):
         if len(subscriber_list) == 0:
             self.status=_("You must choose at last one list.")
             self.info = True
+            self.form_reset = False
             return
         
         success, errors = connector.addSubscribe(subscriber_list, email, data)
         if len(errors):
             self.status = ', '.join( [' '.join([translate(msg, context=self.request) for msg in err.args]) for err in errors ])
             self.errors = True
+            self.form_reset = False
         if success:
             self.successMessage = _("You successfully subscribed to: ${lists}.", mapping=dict(lists=', '.join(success)))
             self.template = self.template_message

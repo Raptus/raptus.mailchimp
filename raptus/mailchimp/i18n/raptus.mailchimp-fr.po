@@ -181,3 +181,7 @@ msgstr "Code postal:"
 # Mailchimp API
 msgid "${email} is already subscribed to list ${list}"
 msgstr "${email} s'est déjà abonné à ${list}."
+
+#Mailchimp API
+msgid "Invalid character: ${char}"
+msgstr "Caractère non valide: ${char}"

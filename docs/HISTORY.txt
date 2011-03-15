@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.0b2 (2011-03-15)
+------------------
+
+* plone 4 compatibility
+* check of non ascii chars
+* keep data after an error
+
+
 1.0b1 (2010-11-15)
 ------------------
 

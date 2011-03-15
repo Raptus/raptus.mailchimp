@@ -181,3 +181,8 @@ msgstr "PLZ:"
 # Mailchimp API
 msgid "${email} is already subscribed to list ${list}"
 msgstr "${email} hat ${list} bereits abonniert."
+
+#Mailchimp API
+msgid "Invalid character: ${char}"
+msgstr "Ungültiges Zeichen: ${char}"
+
