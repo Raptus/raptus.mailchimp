@@ -51,10 +51,12 @@ class Connector(object):
                     success.append(name)
                 except KeyError, error:
                     # special error for non-ascii chars
+                    error.args = getattr(error,'args',tuple()) # backward compatibility
                     error.args = [_('Invalid character: ${char}', mapping=dict(char=msg)) for msg in error.args or [error.msg]]
                     errors.append(error)
                 except Exception, error:
                     mapping = dict(email=email_address,list=name)
+                    error.args = getattr(error,'args',tuple()) # backward compatibility
                     error.args = [_(msg.replace(email_address,'${email}').replace(name,'${list}'), mapping=mapping) for msg in error.args or [error.msg]]
                     errors.append(error)
             else:
