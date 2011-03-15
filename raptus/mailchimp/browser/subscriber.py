@@ -123,13 +123,13 @@ class SubscriberForm(FormBase):
             self.info = True
             self.form_reset = False
             return
-        
         success, errors = connector.addSubscribe(subscriber_list, email, data)
         if len(errors):
             self.status = ', '.join( [' '.join([translate(msg, context=self.request) for msg in err.args]) for err in errors ])
             self.errors = True
             self.form_reset = False
         if success:
+            self.form_reset = True
             self.successMessage = _("You successfully subscribed to: ${lists}.", mapping=dict(lists=', '.join(success)))
             self.template = self.template_message
 
