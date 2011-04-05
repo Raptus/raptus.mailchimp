@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.0b3 (2011-04-05)
+------------------
+
+* restore request form, this prevent issues with five.formlib
+
+
 1.0b2 (2011-03-15)
 ------------------
 

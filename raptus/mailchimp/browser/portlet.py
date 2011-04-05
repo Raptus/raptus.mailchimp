@@ -62,7 +62,14 @@ class Renderer(base.Renderer):
     render = ViewPageTemplateFile('portlet.pt')
     
     def form(self):
-        return getMultiAdapter((self.data, self.request), name='raptus.mailchimp.subscriberForm')()
+        """ ugly hack... 
+            five.formlib change the request while rendering the template. This restore it at the end.
+        """
+        old_form = self.request.form
+        self.request.form = self.request.form.copy()
+        result = getMultiAdapter((self.data, self.request), name='raptus.mailchimp.subscriberForm')()
+        self.request.form = old_form
+        return result
 
     @property
     def name(self):
