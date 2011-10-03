@@ -8,7 +8,11 @@ from zope.app.form.browser import MultiCheckBoxWidget as MultiCheckBoxWidgetBase
 from zope.app.form.browser.widget import SimpleInputWidget
 from plone.memoize import ram
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.Five.formlib.formbase import FormBase
+# BBB
+try:
+    from Products.Five.formlib.formbase import FormBase
+except ImportError:
+    from five.formlib.formbase import FormBase
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDefault.utils import checkEmailAddress
