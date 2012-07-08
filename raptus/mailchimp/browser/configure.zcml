@@ -4,6 +4,8 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="plone">
 
+  <include package="Products.CMFCore" file="permissions.zcml"/>
+
   <browser:page
       name="mailchimp_configlet"
       for="Products.CMFCore.interfaces.ISiteRoot"

@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.0 (unreleased)
+----------------
+
+* Add documentation [toutpt]
+* pep8 [toutpt]
+* update french translation [toutpt]
+* fix missing permissions include (Plone4.1) [toutpt]
+
 1.0b4 (2011-10-18)
 ------------------
 
