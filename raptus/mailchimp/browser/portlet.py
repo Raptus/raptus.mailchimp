@@ -15,14 +15,19 @@ from raptus.mailchimp import interfaces
 def available_list(context):
     connector = interfaces.IConnector(context)
     lists = connector.getLists()
-    if hasattr(context,'data'):
-        context.data.available_list = connector.cleanUpLists(context.data.available_list)
-    return SimpleVocabulary([SimpleTerm(value=li['id'], title=li['name']) for li in lists])
+    if hasattr(context, 'data'):
+        available = context.data.available_list
+        context.data.available_list = connector.cleanUpLists(available)
+    terms = [SimpleTerm(value=li['id'], title=li['name']) for li in lists]
+    return SimpleVocabulary(terms)
+
 
 def errorMessage(context):
     if not interfaces.IConnector(context).isValid:
         utils = getToolByName(context, 'plone_utils')
-        utils.addPortalMessage(_('API key entry required for editing this portlet.'),'error')
+        msg = _(u'API key entry required for editing this portlet.')
+        utils.addPortalMessage(msg, 'error')
+
 
 class IMailChimpPortlet(IPortletDataProvider):
     """A Mailchimp portlet"""
@@ -30,7 +35,7 @@ class IMailChimpPortlet(IPortletDataProvider):
     name = schema.TextLine(
     title=_(u'Title'),
     description=_(u'Title of the portlet'))
-    
+
     available_list = schema.List(
     title=_(u'Available lists'),
     description=_(u'Select available lists to subscribe to.'),
@@ -38,13 +43,14 @@ class IMailChimpPortlet(IPortletDataProvider):
     min_length=1,
     value_type=schema.Choice(source='raptus.mailchimp.available_list'))
 
+
 class Assignment(base.Assignment):
     """Portlet assignment"""
-    
+
     implements(IMailChimpPortlet, interfaces.IProperties)
 
     _all_lists = {}
-    
+
     def __init__(self, name=u'', available_list=[]):
         self.name = name
         self.available_list = available_list
@@ -52,22 +58,25 @@ class Assignment(base.Assignment):
     @property
     def title(self):
         return _(u"MailChimp")
-    
+
     def getAvailableList(self):
         return self.available_list
 
+
 class Renderer(base.Renderer):
     """Portlet renderer"""
-    
+
     render = ViewPageTemplateFile('portlet.pt')
-    
+
     def form(self):
-        """ ugly hack... 
-            five.formlib change the request while rendering the template. This restore it at the end.
+        """ ugly hack...
+            five.formlib change the request while rendering the template.
+            This restore it at the end.
         """
         old_form = self.request.form
         self.request.form = self.request.form.copy()
-        result = getMultiAdapter((self.data, self.request), name='raptus.mailchimp.subscriberForm')()
+        result = getMultiAdapter((self.data, self.request),
+                                 name='raptus.mailchimp.subscriberForm')()
         self.request.form = old_form
         return result
 
@@ -77,22 +86,27 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        return len(component.getUtility(IVocabularyFactory,'raptus.mailchimp.subscriber_list')(self.data))
+        utility = component.getUtility(IVocabularyFactory,
+                                          'raptus.mailchimp.subscriber_list')
+        return len(utility(self.data))
+
 
 class AddForm(base.AddForm):
     """Portlet add form"""
     form_fields = form.Fields(IMailChimpPortlet)
-    
+
     def update(self):
         errorMessage(self.context)
         super(AddForm, self).update()
-    
+
     def create(self, data):
         return Assignment(**data)
 
+
 class EditForm(base.EditForm):
     """Portlet edit form"""
+    form_fields = form.Fields(IMailChimpPortlet)
+
     def __call__(self):
         errorMessage(self.context)
         return super(EditForm, self).__call__()
-    form_fields = form.Fields(IMailChimpPortlet)

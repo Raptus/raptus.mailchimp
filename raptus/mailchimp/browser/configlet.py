@@ -6,35 +6,37 @@ from raptus.mailchimp import MessageFactory as _
 
 from raptus.mailchimp.interfaces import IConnector
 
+
 class Configlet(BrowserView):
     template = ViewPageTemplateFile('configlet.pt')
-    
+
     errors = {}
     values = {}
     account_data = None
-    
-    def __call__(self):
-        props = getToolByName(self.context, 'portal_properties').raptus_mailchimp
-        utils = getToolByName(self.context, 'plone_utils')
-        connector= None
-        self.values.update(dict(mailchimp_apikey = props.mailchimp_api_key))
 
-        if self.request.form.has_key('mailchimp_save'):
+    def __call__(self):
+        portal_properties = getToolByName(self.context, 'portal_properties')
+        props = portal_properties.raptus_mailchimp
+        utils = getToolByName(self.context, 'plone_utils')
+        connector = None
+        self.values.update(dict(mailchimp_apikey=props.mailchimp_api_key))
+
+        if 'mailchimp_save' in self.request.form:
             connector = IConnector(self.context)
-            connector.setNewAPIKey(self.request.form.get('mailchimp_apikey'))
+            mailchimp_apikey = self.request.form.get('mailchimp_apikey')
+            connector.setNewAPIKey(mailchimp_apikey)
             if connector.isValid:
-                props.mailchimp_api_key = self.request.form.get('mailchimp_apikey')
+                props.mailchimp_api_key = mailchimp_apikey
             else:
-                self.errors.update(dict(mailchimp_apikey=_(u'The provided MailChimp API key is not valid')))
-                utils.addPortalMessage(_(u'The given API-Key for MailChimp is not valid'),'error')
-            self.values.update(dict(mailchimp_apikey = self.request.form.get('mailchimp_apikey')))
-        
+                msg = _(u'The provided MailChimp API key is not valid')
+                self.errors.update(dict(mailchimp_apikey=msg))
+                msg = _(u'The given API-Key for MailChimp is not valid')
+                utils.addPortalMessage(msg, 'error')
+            self.values.update(dict(mailchimp_apikey=mailchimp_apikey))
+
         if not connector:
             connector = IConnector(self.context)
         if connector.isValid:
             self.account_data = connector.getAccountDetails()
-                
-                
+
         return self.template()
-    
-    

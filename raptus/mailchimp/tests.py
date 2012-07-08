@@ -12,6 +12,7 @@ ptc.setupPloneSite()
 
 import raptus.mailchimp
 
+
 class TestCase(ptc.PloneTestCase):
     class layer(PloneSite):
         @classmethod
