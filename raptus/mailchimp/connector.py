@@ -1,12 +1,21 @@
-from Products.CMFCore.utils import getToolByName
-from zope import interface, component
+import time
 import greatape
+
+from zope import interface, component
+
+from Products.CMFCore.utils import getToolByName
+
+from plone.memoize import ram
+
 from raptus.mailchimp.interfaces import IConnector
 from raptus.mailchimp import MessageFactory as _
 
 
-class Connector(object):
+def cache_key(func, self):
+    return (func.__name__, self.props.mailchimp_api_key, int(time.time()) / self.props.mailchimp_cache_sec)
 
+
+class Connector(object):
     interface.implements(IConnector)
     component.adapts(interface.Interface)
 
@@ -15,14 +24,20 @@ class Connector(object):
 
     def __init__(self, context):
         self.context = context
+        self.mailChimp = None
         portal_properties = getToolByName(self.context, 'portal_properties')
         self.props = portal_properties.raptus_mailchimp
-        self.setNewAPIKey(self.props.mailchimp_api_key)
 
+    @ram.cache(cache_key)
     def getAccountDetails(self):
+        if self.mailChimp is None:
+            self.setNewAPIKey(self.props.mailchimp_api_key)
         return self.mailChimp(method='getAccountDetails')
 
+    @ram.cache(cache_key)
     def getLists(self):
+        if self.mailChimp is None:
+            self.setNewAPIKey(self.props.mailchimp_api_key)
         if self.isValid:
             try:
                 return self.mailChimp(method='lists')
@@ -31,6 +46,8 @@ class Connector(object):
         return []
 
     def addSubscribe(self, ids, email_address, merge_vars={}, **kwargs):
+        if self.mailChimp is None:
+            self.setNewAPIKey(self.props.mailchimp_api_key)
         defaults = dict(email_type=self.props.lists_email_type,
                         double_optin=self.props.lists_double_optin,
                         update_existing=self.props.lists_update_existing,

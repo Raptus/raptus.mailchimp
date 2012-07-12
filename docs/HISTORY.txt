@@ -1,9 +1,11 @@
 Changelog
 =========
 
-1.0 (unreleased)
+1.0 (2012-07-12)
 ----------------
 
+* Moved caching from the subscriber_list method to the connector which greatly
+  reduces requests made to mailchimp [simu]
 * Add documentation [toutpt]
 * pep8 [toutpt]
 * update french translation [toutpt]

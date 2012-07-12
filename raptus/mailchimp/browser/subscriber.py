@@ -1,4 +1,3 @@
-import time
 from zope import interface, schema, component
 from zope.i18n import translate
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
@@ -6,7 +5,6 @@ from zope.formlib import form
 from zope.schema.interfaces import IVocabularyFactory
 from zope.app.form.browser import MultiCheckBoxWidget as MultiCheckBoxWidgetBase
 from zope.app.form.browser.widget import SimpleInputWidget
-from plone.memoize import ram
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 # BBB
 try:
@@ -23,17 +21,6 @@ import pkg_resources
 PLONE4 = pkg_resources.get_distribution('Plone').version.startswith('4')
 
 
-def _render_cachekey(fun, self):
-    try:
-        props = getToolByName(self.context, 'portal_properties').raptus_mailchimp
-        key = '-'.join(self.data.getAvailableList())
-        key += str(int(time.time()) / props.mailchimp_cache_sec) # cache for at most 100 seconds
-        return key
-    except:
-        raise ram.DontCache
-
-
-@ram.cache(_render_cachekey)
 def subscriber_list(context):
     connector = interfaces.IConnector(context)
     lists = connector.getLists()

@@ -20,7 +20,7 @@ You can install this addon as any other Plone addons. Please follow the
 official documentation:
 http://plone.org/documentation/kb/installing-add-ons-quick-how-to
 
-This addons as a dependency on greatape_
+This addons adds a dependency on greatape_
 
 How to use
 ==========
