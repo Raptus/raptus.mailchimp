@@ -1,5 +1,5 @@
 import time
-import greatape
+import mailchimp
 
 from zope import interface, component
 
@@ -30,77 +30,116 @@ class Connector(object):
 
     @ram.cache(cache_key)
     def getAccountDetails(self):
-        if self.mailChimp is None:
-            self.setNewAPIKey(self.props.mailchimp_api_key)
-        return self.mailChimp(method='getAccountDetails')
+        self.checkConnection()
+
+        return self.mailChimp.helper.account_details()
 
     @ram.cache(cache_key)
     def getLists(self):
-        if self.mailChimp is None:
-            self.setNewAPIKey(self.props.mailchimp_api_key)
+        self.checkConnection()
+
         if self.isValid:
             try:
-                return self.mailChimp(method='lists')
+                lists = self.mailChimp.lists.list()
+                lists = lists.get('data')
+                return lists
             except:
                 pass
         return []
 
-    def addSubscribe(self, ids, email_address, merge_vars={}, **kwargs):
+    def checkConnection(self):
         if self.mailChimp is None:
             self.setNewAPIKey(self.props.mailchimp_api_key)
-        defaults = dict(email_type=self.props.lists_email_type,
-                        double_optin=self.props.lists_double_optin,
-                        update_existing=self.props.lists_update_existing,
-                        replace_interests=self.props.lists_replace_interests,
-                        send_welcome=self.props.lists_send_welcome)
-        defaults.update(kwargs)
 
-        # quick fix if merge_vars are empty
-        if not len(merge_vars):
-            merge_vars = dict(dummy='dummy')
+    def subscribe(self, ids, email, merge_vars={}, **kwargs):
+        self.checkConnection()
+
+        defaults = dict(email_type=self.props.subscribe_email_type,
+                        double_optin=self.props.subscribe_double_optin,
+                        update_existing=self.props.subscribe_update_existing,
+                        replace_interests=self.props.subscribe_replace_interests,
+                        send_welcome=self.props.subscribe_send_welcome)
+        defaults.update(kwargs)
 
         errors = []
         success = []
-        lists = self.getLists()
+
         for id in ids:
-            if id in [li['id'] for li in lists]:
-                name = [i for i in lists if i['id'] == id][0]['name']
+            if id in self.cleanUpLists(ids):
+                list_name = self.getListName(id)
                 try:
-                    self.mailChimp(method='listSubscribe',
-                                   id=id,
-                                   email_address=email_address,
-                                   merge_vars=merge_vars,
-                                   **defaults)
-                    success.append(name)
-                except KeyError, error:
-                    # special error for non-ascii chars
-                    # backward compatibility
-                    error.args = getattr(error, 'args', tuple())
-                    error.args = [_('Invalid character: ${char}',
-                                    mapping=dict(char=msg))\
-                                  for msg in error.args or [error.msg]]
+                    self.mailChimp.lists.subscribe(id=id,
+                                                   email={'email':email},
+                                                   merge_vars=merge_vars,
+                                                   **defaults)
+                    success.append(list_name)
+
+                except mailchimp.Error, error:
+                    mapping = dict(email=email, list_name=list_name)
+                    error = self.translateError(error)
+                    error.args = [_(msg, mapping=mapping)\
+                                  for msg in error.args or [error.message]]
                     errors.append(error)
-                except Exception, error:
-                    mapping = dict(email=email_address, list=name)
-                    # backward compatibility
-                    error.args = getattr(error, 'args', tuple())
-                    error.args = [_(msg.replace(email_address, '${email}')\
-                                    .replace(name, '${list}'),
-                                    mapping=mapping)\
-                                  for msg in error.args or [error.msg]]
-                    errors.append(error)
+
             else:
                 msg = _(u'The chosen list is not available anymore.')
-                errors.append(greatape.MailChimpError(msg))
+                errors.append(msg)
+
+        return success, errors
+
+    def unsubscribe(self, ids, email, **kwargs):
+        self.checkConnection()
+
+        defaults = dict(delete_member=self.props.unsubscribe_delete_member,
+                        send_goodbye=self.props.unsubscribe_send_goodbye,
+                        send_notify=self.props.unsubscribe_send_notify)
+        defaults.update(kwargs)
+
+        errors = []
+        success = []
+
+        for id in ids:
+            if id in self.cleanUpLists(ids):
+                list_name = self.getListName(id)
+                try:
+                    self.mailChimp.lists.unsubscribe(id=id,
+                                                     email={'email':email},
+                                                     **defaults)
+                    success.append(list_name)
+
+                except mailchimp.Error, error:
+                    mapping = dict(email=email, list_name=list_name)
+                    error = self.translateError(error)
+                    error.args = [_(msg, mapping=mapping)\
+                                  for msg in error.args or [error.message]]
+                    errors.append(error)
+
+            else:
+                msg = _(u'The chosen list is not available anymore.')
+                errors.append(msg)
+
         return success, errors
 
     def cleanUpLists(self, lists):
         return [li for li in lists if li in [i['id'] for i in self.getLists()]]
 
     def setNewAPIKey(self, apikey):
-        self.mailChimp = greatape.MailChimp(apikey, self.props.mailchimp_ssl,
-                                            self.props.mailchimp_debug)
+        self.mailChimp = mailchimp.Mailchimp(apikey, self.props.mailchimp_debug)
         try:
-            self.isValid = self.mailChimp(method='ping')
+            self.isValid = self.mailChimp.helper.ping()
         except:
             self.isValid = False
+
+    def getListName(self, list_id):
+        list = self.mailChimp.lists.list(filters={'list_id':list_id}).get('data')
+        return list[0].get('name', _(u'Error retrieving list name'))
+
+    def translateError(self, error):
+        errorname = error.__class__.__name__
+
+        if errorname == 'ListAlreadySubscribedError':
+            error.message = u'${email} is already subscribed to list ${list_name}.'
+
+        error.args = [error.message]
+
+        return error

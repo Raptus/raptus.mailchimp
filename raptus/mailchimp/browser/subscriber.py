@@ -120,10 +120,9 @@ class SubscriberForm(FormBase):
 
         if len(subscriber_list) == 0:
             self.status = _(u"You must choose at last one list.")
-            self.info = True
             self.form_reset = False
             return
-        success, errors = connector.addSubscribe(subscriber_list, email, data)
+        success, errors = connector.subscribe(subscriber_list, email, data)
         if len(errors):
             msgs = [' '.join([translate(msg, context=self.request) \
                               for msg in err.args]) for err in errors]

@@ -24,7 +24,7 @@ setup(name='raptus.mailchimp',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'greatape'
+          'mailchimp',
           # -*- Extra requirements: -*-
       ],
       entry_points="""

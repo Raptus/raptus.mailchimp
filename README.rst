@@ -25,7 +25,7 @@ This addons adds a dependency on greatape_
 How to use
 ==========
 
-You have to get an API key on raptus.com. The addon as a 'Raptus' controlpanel
+You have to get an API key on mailchimp.com. The addon as a 'Raptus' controlpanel
 where you will be able to add your apikey.
 
 Next you can add the Mailchimp portlet to let visitors subscribe to your lists.
@@ -49,4 +49,3 @@ Contributors
 - JeanMichel FRANCOIS aka toutpt <toutpt@gmail.com>
 
 .. _mailchimp: http://www.mailchimp.com
-.. _greatape: http://pypi.python.org/pypi/greatape
