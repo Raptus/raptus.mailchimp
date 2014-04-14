@@ -31,6 +31,4 @@ setup(name='raptus.mailchimp',
       # -*- Entry points: -*-
 
       """,
-      setup_requires=[ ],
-      paster_plugins = [ ],
       )
